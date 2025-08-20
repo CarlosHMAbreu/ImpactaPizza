@@ -184,3 +184,4 @@ C:\Users\carlos.abreu\Pizzaria\obj\Debug\net9.0\Pizzaria.genruntimeconfig.cache
 C:\Users\carlos.abreu\Pizzaria\obj\Debug\net9.0\ref\Pizzaria.dll
 C:\Users\carlos.abreu\Pizzaria\obj\Debug\net9.0\compressed\gcka736gtu-asfd64v40p.gz
 C:\Users\carlos.abreu\Pizzaria\obj\Debug\net9.0\compressed\i2cj76q15y-rgrdhxoxv6.gz
+C:\Users\carlos.abreu\Pizzaria\obj\Debug\net9.0\Pizzaria.sourcelink.json
