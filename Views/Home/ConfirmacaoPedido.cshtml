@@ -1,0 +1,43 @@
+@model Pizzaria.Models.Pedido
+@{
+    ViewData["Title"] = "Confirmação de Pedido";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h3 class="card-title mb-0"><i class="fas fa-check-circle"></i> Pedido Confirmado!</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-pizza-slice fa-5x text-success"></i>
+                    </div>
+                    
+                    <h4 class="text-success">Seu pedido foi recebido com sucesso!</h4>
+                    <p class="lead">Agora é só aguardar que logo sua pizza estará a caminho.</p>
+                    
+                    <div class="alert alert-info text-start">
+                        <h5>Detalhes do Pedido:</h5>
+                        <p><strong>Nº do Pedido:</strong> @Model.Id</p>
+                        <p><strong>Total:</strong> R$ @Model.Total.ToString("0.00")</p>
+                        <p><strong>Endereço de entrega:</strong> @Model.EnderecoEntrega</p>
+                        <p><strong>Status:</strong> <span class="badge bg-success">@Model.Status</span></p>
+                        <p><strong>Previsão de entrega:</strong> 40-50 minutos</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="/Home/Pedido" class="btn btn-primary me-2">
+                            <i class="fas fa-pizza-slice"></i> Fazer Novo Pedido
+                        </a>
+                        <a href="/" class="btn btn-outline-secondary">
+                            <i class="fas fa-home"></i> Voltar ao Início
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

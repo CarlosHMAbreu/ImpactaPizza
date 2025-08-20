@@ -1,0 +1,73 @@
+@model Pizzaria.Models.Pedido
+@{
+    ViewData["Title"] = "Resumo do Pedido";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">Resumo do Pedido</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Informações do Pedido</h5>
+                            <p><strong>Nº do Pedido:</strong> @Model.Id</p>
+                            <p><strong>Data:</strong> @Model.DataPedido.ToString("dd/MM/yyyy HH:mm")</p>
+                            <p><strong>Status:</strong> 
+                                <span class="badge @(Model.Status == "Aguardando Pagamento" ? "bg-warning" : "bg-success")">
+                                    @Model.Status
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Endereço de Entrega</h5>
+                            <p>@Model.EnderecoEntrega</p>
+                            @if (!string.IsNullOrEmpty(Model.Observacoes))
+                            {
+                                <p><strong>Observações:</strong> @Model.Observacoes</p>
+                            }
+                        </div>
+                    </div>
+
+                    <h5>Itens do Pedido</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Pizza</th>
+                                <th>Quantidade</th>
+                                <th>Preço Unitário</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Itens)
+                            {
+                                <tr>
+                                    <td>@item.NomePizza</td>
+                                    <td>@item.Quantidade</td>
+                                    <td>R$ @item.PrecoPizza.ToString("0.00")</td>
+                                    <td>R$ @((item.PrecoPizza * item.Quantidade).ToString("0.00"))</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-primary">
+                                <td colspan="3" class="text-end fw-bold">Total:</td>
+                                <td class="fw-bold">R$ @Model.Total.ToString("0.00")</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="/Home/Pedido" class="btn btn-secondary me-md-2">Voltar</a>
+                        <a href="/Home/Pagamento/@Model.Id" class="btn btn-success">Prosseguir para Pagamento</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

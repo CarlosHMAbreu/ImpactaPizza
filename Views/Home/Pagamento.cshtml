@@ -1,0 +1,84 @@
+@{
+    ViewData["Title"] = "Pagamento";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h3 class="card-title mb-0">Finalizar Pagamento</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> Total a pagar: <strong>@ViewBag.Total</strong>
+                    </div>
+
+                    <form asp-action="ProcessarPagamento" method="post">
+                        <input type="hidden" name="pedidoId" value="@ViewBag.PedidoId" />
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nome no Cartão</label>
+                            <input type="text" class="form-control" name="nomeCartao" required placeholder="Como está no cartão">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Número do Cartão</label>
+                            <input type="text" class="form-control" name="numeroCartao" required placeholder="0000 0000 0000 0000" pattern="[0-9\s]{13,19}">
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Validade</label>
+                                <input type="text" class="form-control" name="validadeCartao" required placeholder="MM/AA" pattern="(0[1-9]|1[0-2])\/[0-9]{2}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">CVV</label>
+                                <input type="text" class="form-control" name="cvvCartao" required placeholder="000" pattern="[0-9]{3}">
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-credit-card"></i> Pagar Agora
+                            </button>
+                            <a href="/Home/ResumoPedido/@ViewBag.PedidoId" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Validação básica do formulário
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const numeroCartao = document.querySelector('input[name="numeroCartao"]').value;
+            const validade = document.querySelector('input[name="validadeCartao"]').value;
+            const cvv = document.querySelector('input[name="cvvCartao"]').value;
+            
+            if (!numeroCartao.match(/^[0-9\s]{13,19}$/)) {
+                e.preventDefault();
+                alert('Número do cartão inválido. Use apenas números e espaços.');
+                return false;
+            }
+            
+            if (!validade.match(/^(0[1-9]|1[0-2])\/[0-9]{2}$/)) {
+                e.preventDefault();
+                alert('Validade inválida. Use o formato MM/AA.');
+                return false;
+            }
+            
+            if (!cvv.match(/^[0-9]{3}$/)) {
+                e.preventDefault();
+                alert('CVV inválido. Deve conter 3 dígitos.');
+                return false;
+            }
+        });
+    </script>
+}

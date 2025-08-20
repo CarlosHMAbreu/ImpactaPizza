@@ -1,0 +1,184 @@
+@model List<Pizzaria.Models.Pizza>
+@{
+    ViewData["Title"] = "Faça seu pedido";
+    Layout = "_Layout";
+}
+
+<style>
+    .pizza-card {
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    .pizza-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .pizza-card.selected {
+        border: 3px solid #198754 !important;
+        box-shadow: 0 0 15px rgba(25, 135, 84, 0.3);
+    }
+    .total-display {
+        background: linear-gradient(45deg, #198754, #20c997);
+        color: white;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .quantity-selector {
+        width: 80px;
+        margin: 10px auto;
+        text-align: center;
+    }
+    .quantity-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #dc3545;
+        color: white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container">
+    <h1 class="text-center mb-4">Faça seu pedido</h1>
+    
+    <!-- Display do Total -->
+    <div class="total-display text-center">
+        <h4 id="total-pedido">Total: R$ 0,00</h4>
+        <small id="total-items">0 pizzas selecionadas</small>
+    </div>
+    
+    <form asp-action="FazerPedido" method="post" id="form-pedido">
+        <div class="row">
+            @foreach (var pizza in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card pizza-card position-relative">
+                        <img src="@pizza.ImagemUrl" class="card-img-top" alt="@pizza.Nome" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@pizza.Nome</h5>
+                            <p class="card-text">@pizza.Descricao</p>
+                            <p class="card-text"><strong>R$ @pizza.Preco.ToString("0.00")</strong></p>
+                            
+                            <div class="quantity-selector">
+                                <label for="quantidade_@pizza.Id" class="form-label">Quantidade:</label>
+                                <select class="form-select pizza-quantity" 
+                                        name="pizzasQuantidades[@pizza.Id]" 
+                                        id="quantidade_@pizza.Id"
+                                        data-preco="@pizza.Preco.ToString("0.00").Replace(",", ".")" 
+                                        data-nome="@pizza.Nome">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="enderecoEntrega" class="form-label fw-bold">Endereço de entrega:</label>
+                    <input type="text" class="form-control" name="enderecoEntrega" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="observacoes" class="form-label fw-bold">Observações:</label>
+                    <textarea class="form-control" name="observacoes" rows="3" placeholder="Sem cebola, ponto da massa, etc."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pagamentoEntrega" value="true" id="pagamentoEntrega">
+                    <label class="form-check-label fw-bold" for="pagamentoEntrega">
+                        Pagamento na entrega
+                    </label>
+                </div>
+                <small class="text-muted">Se marcado, o pagamento será realizado quando a pizza for entregue</small>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-success btn-lg">Finalizar Pedido</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantitySelects = document.querySelectorAll('.pizza-quantity');
+            const totalElement = document.getElementById('total-pedido');
+            const totalItemsElement = document.getElementById('total-items');
+            let total = 0;
+            let totalItems = 0;
+            
+            // Atualiza o total quando a quantidade é alterada
+            quantitySelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    const preco = parseFloat(this.getAttribute('data-preco'));
+                    const quantidade = parseInt(this.value);
+                    const card = this.closest('.pizza-card');
+                    
+                    // Remove o badge anterior se existir
+                    const existingBadge = card.querySelector('.quantity-badge');
+                    if (existingBadge) {
+                        existingBadge.remove();
+                    }
+                    
+                    // Adiciona badge se quantidade > 0
+                    if (quantidade > 0) {
+                        const badge = document.createElement('div');
+                        badge.className = 'quantity-badge';
+                        badge.textContent = quantidade;
+                        card.appendChild(badge);
+                        card.classList.add('selected');
+                    } else {
+                        card.classList.remove('selected');
+                    }
+                    
+                    // Atualiza totais
+                    total = 0;
+                    totalItems = 0;
+                    
+                    quantitySelects.forEach(s => {
+                        const qtd = parseInt(s.value);
+                        const prc = parseFloat(s.getAttribute('data-preco'));
+                        total += qtd * prc;
+                        totalItems += qtd;
+                    });
+                    
+                    // Atualiza o display
+                    totalElement.textContent = 'Total: R$ ' + total.toFixed(2).replace('.', ',');
+                    totalItemsElement.textContent = totalItems + ' pizza' + (totalItems !== 1 ? 's' : '') + ' selecionada' + (totalItems !== 1 ? 's' : '');
+                });
+            });
+            
+            // Validação antes de enviar o formulário
+            document.getElementById('form-pedido').addEventListener('submit', function(e) {
+                if (total === 0) {
+                    e.preventDefault();
+                    alert('Por favor, selecione pelo menos uma pizza!');
+                }
+            });
+        });
+    </script>
+}
