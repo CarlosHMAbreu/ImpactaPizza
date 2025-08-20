@@ -14,7 +14,7 @@ namespace Pizzaria.Models
     [Required]
     public string EnderecoEntrega { get; set; } = string.Empty;
     
-    public string Observacoes { get; set; } = string.Empty; // Já está correto
+    public string Observacoes { get; set; } = string.Empty;
     
     [Required]
     public decimal Total { get; set; }

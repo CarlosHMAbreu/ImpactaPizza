@@ -3,7 +3,7 @@ using Pizzaria.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add serviços ao container.
 builder.Services.AddControllersWithViews();
 
 // Configuração do DbContext
@@ -23,7 +23,7 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configura o pipeline de requisições HTTP.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
