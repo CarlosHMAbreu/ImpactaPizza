@@ -59,9 +59,6 @@ Views/Home/Index
 Views/Auth/Login
 <img width="2559" height="943" alt="image" src="https://github.com/user-attachments/assets/6e2650ff-7c71-4af6-8893-e38e4055c04b" />
 
-Views/Auth/Cadastro
-<img width="2558" height="941" alt="image" src="https://github.com/user-attachments/assets/cfd5c9ee-08c2-470a-8180-d8c60dd34699" />
-
 
 📄 **Licença**
 
