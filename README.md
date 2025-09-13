@@ -12,14 +12,23 @@ Projeto final do curso de Análise e Desenvolvimento de Sistemas (ADS) – Facul
   
 
 🚀 **Funcionalidades**
+- Armazenamento seguro do cadastro 
+
+- Login 
 
 - Interface de usuário intuitiva para realização de pedidos
 
-- Processamento de pagamentos integrado
+- Processamento de pagamentos
 
 - Armazenamento seguro de informações dos pedidos
 
 - Sistema de apoio à entrega com dados atualizados
+
+- Consultas para acompanhar os pedidos feitos
+
+- Gerenciamento de pedidos
+
+- Gerenciamento e criação de itens para seleção
   
 
 🛠 **Tecnologias Utilizadas**
@@ -27,8 +36,9 @@ Projeto final do curso de Análise e Desenvolvimento de Sistemas (ADS) – Facul
 - ASP.NET Core MVC
 - Entity Framework Core
 - SQL Server
+- LINQ
+- HTML/CSS com bootstrap
 - JavaScript
-- HTML/CSS
 
 
 📦 **Como Rodar o Projeto**
