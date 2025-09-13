@@ -4,40 +4,70 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Pizzaria</title>
+
+    <link rel="icon" href="~/favicon-multi.ico" type="image/x-icon" />
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <!--Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
-    <header>
-        <!--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <i class="fas fa-pizza-slice me-2"></i>Pizzaria
-                </a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Auth" asp-action="Login">
-                                <i class="fas fa-sign-in-alt me-1"></i>Login
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Auth" asp-action="Cadastro">
-                                <i class="fas fa-user-plus me-1"></i>Cadastro
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Pedido">
-                                <i class="fas fa-utensils me-1"></i>Fazer Pedido
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+
+    @if (Context.Session.GetInt32("UsuarioId") != null)
+        {
+            <div class="d-flex align-items-center" >
+                <span class="badge bg-danger ms-1e-2">
+                    <i class="fas fa-user me-1"></i>
+                    Olá, @Context.Session.GetString("UsuarioNome")
+                    @if (Context.Session.GetString("IsAdmin") == "True")
+                    {
+                        <span class="badge bg-success ms-1">Admin</span>
+                        <a href="/Pizza/Cadastrar" class="btn btn-secondary">
+                            <i class="fas fa-plus me-2"></i>Cadastrar Pizza
+                        </a>
+                        <a href="/Pizza/Admin" class="btn btn-secondary">
+                            <i class="fas fa-cogs me-2"></i>Gerenciar Pizzas
+                        </a>
+                        <a href="/Home/AdminPedidos" class="btn btn-secondary">
+                            <i class="fas fa-cogs me-2"></i>Gerenciar Pedidos
+                        </a>
+                        <a href="/Home/Pedido" class="btn btn-secondary">
+                            <i class="fas fa-plus me-2"></i>Pedido especial
+                        </a>
+                    }
+                </span>
             </div>
-        </nav>-->
-    </header>
+        }
+    
+    <header>
+                  <!--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                        <div class="container">
+                            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-pizza-slice me-2"></i>Pizzaria
+                            </a>
+                            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                                <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Auth" asp-action="Login">
+                                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Auth" asp-action="Cadastro">
+                                            <i class="fas fa-user-plus me-1"></i>Cadastro
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Pedido">
+                                            <i class="fas fa-utensils me-1"></i>Fazer Pedido
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>-->
+    </header> 
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -48,4 +78,12 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+<style>
+    body {
+        background-image: url('/images/FundoSutil.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
 </html>

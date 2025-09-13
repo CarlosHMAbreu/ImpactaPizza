@@ -21,6 +21,15 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+// Adicione suporte a sessões
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configura o pipeline de requisições HTTP.
@@ -35,10 +44,28 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
+// Middleware para log de operações de banco de dados
+IApplicationBuilder applicationBuilder = app.Use(async (context, next) =>
+{
+    // Intercepta requests para detectar problemas
+    if (context.Request.Path.StartsWithSegments("/Home/FazerPedido"))
+    {
+        Console.WriteLine($"Request para FazerPedido: {context.Request.Method}");
+    }
+    
+    await next();
+});
+
 // Usar sessões
 app.UseSession();
 
 app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseMiddleware<Pizzaria.Middleware.AdminAuthorizationMiddleware>();
+
+var controllerActionEndpointConventionBuilder = app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 

@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Cadastro Realizado";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-success">
+                <div class="card-header bg-success text-white text-center py-3">
+                    <h3><i class="fas fa-check-circle me-2"></i>Cadastro Realizado!</h3>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-user-shield fa-5x text-success"></i>
+                    </div>
+                    
+                    <h4 class="text-success">Administrador cadastrado com sucesso!</h4>
+                    <p class="lead">Agora você pode fazer login no sistema.</p>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="/Auth/Login" class="btn btn-primary btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>Fazer Login
+                        </a>
+                        <a href="/" class="btn btn-outline-secondary">
+                            <i class="fas fa-home me-2"></i>Voltar ao Início
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

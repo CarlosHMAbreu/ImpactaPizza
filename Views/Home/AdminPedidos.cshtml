@@ -1,0 +1,92 @@
+@model List<Pizzaria.Models.Pedido>
+@{
+    ViewData["Title"] = "Administração de Pedidos";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h1 class="text-center mb-4">Administração de Pedidos</h1>
+    
+    @if (TempData["Sucesso"] != null)
+    {
+        <div class="alert alert-success">@TempData["Sucesso"]</div>
+    }
+    @if (TempData["Erro"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Erro"]</div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nº Pedido</th>
+                    <th>Cliente</th>
+                    <th>Telefone</th>
+                    <th>Endereço</th>
+                    <th>Data/Hora</th>
+                    <th>Itens</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pedido in Model)
+                {
+                    <tr>
+                        <td>@pedido.Id</td>
+                        <td>@pedido.Usuario?.NomeCompleto</td>
+                        <td>@pedido.Usuario?.Telefone</td>
+                        <td>@pedido.EnderecoEntrega</td>
+                        <td>@pedido.DataPedido.ToString("dd/MM/yy HH:mm")</td>
+                        <td>
+                            @foreach (var item in pedido.Itens)
+                            {
+                                <span>@item.Quantidade x @item.NomePizza<br></span>
+                            }
+                            @if (!string.IsNullOrEmpty(pedido.Observacoes))
+                            {
+                                <small class="text-muted">Obs: @pedido.Observacoes</small>
+                            }
+                        </td>
+                        <td>R$ @pedido.Total.ToString("0.00")</td>
+                        <td>
+                            <span class="badge @GetStatusBadgeClass(pedido.Status)">@pedido.Status</span>
+                        </td>
+                        <td>
+                            <form asp-action="AtualizarStatus" method="post" class="d-inline">
+                                <input type="hidden" name="pedidoId" value="@pedido.Id" />
+                                <select name="novoStatus" class="form-select form-select-sm" onchange="this.form.submit()">
+                                    <option value="Aguardando Pagamento" selected="@(pedido.Status == "Aguardando Pagamento")">Aguardando Pagamento</option>
+                                    <option value="Pago - Em Preparação" selected="@(pedido.Status == "Pago - Em Preparação")">Pago - Em Preparação</option>
+                                    <option value="Saiu para Entrega" selected="@(pedido.Status == "Saiu para Entrega")">Saiu para Entrega</option>
+                                    <option value="Entregue" selected="@(pedido.Status == "Entregue")">Entregue</option>
+                                    <option value="Cancelado" selected="@(pedido.Status == "Cancelado")">Cancelado</option>
+                                </select>
+                            </form>
+                            <a href="/Home/DetalhesPedido/@pedido.Id" class="btn btn-sm btn-info mt-1" title="Ver detalhes">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Aguardando Pagamento" => "bg-warning",
+            "Pago - Em Preparação" => "bg-info",
+            "Saiu para Entrega" => "bg-primary",
+            "Entregue" => "bg-success",
+            "Cancelado" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+}

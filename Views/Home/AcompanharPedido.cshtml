@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Acompanhar Pedido";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">Acompanhar Seu Pedido</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="BuscarPedido" method="post">
+                        <div class="mb-3">
+                            <label for="numeroPedido" class="form-label fw-bold">Número do Pedido:</label>
+                            <input type="number" class="form-control" name="numeroPedido" required 
+                                   placeholder="Digite o número do seu pedido">
+                            <small class="text-muted">O número do pedido foi enviado para seu email após a confirmação.</small>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search me-2"></i>Buscar Pedido
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-4">
+                        <h5>Não tem o número do pedido?</h5>
+                        <p>Entre em contato conosco:</p>
+                        <p><i class="fas fa-phone me-2"></i>(11) 9999-9999</p>
+                        <p><i class="fas fa-envelope me-2"></i>contato@pizzaria.com</p>
+                    </div>
+
+                    <div>
+
+                        <a href="/Home/Index" class="btn btn-primary me-2">
+                            <i class="fas fa-pizza-slice"></i> Sair
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

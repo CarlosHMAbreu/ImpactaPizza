@@ -19,6 +19,14 @@
                         </div>
                     }
                     
+                    <!-- ADICIONE ESTA PARTE PARA MOSTRAR MENSAGEM DE SUCESSO -->
+                    @if (TempData["Sucesso"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>@TempData["Sucesso"]
+                        </div>
+                    }
+                    
                     <form method="post">
                         <div class="form-group mb-3">
                             <label class="form-label fw-bold"><i class="fas fa-envelope me-2"></i>Email</label>
@@ -42,6 +50,13 @@
                             <a href="/Auth/Cadastro" class="text-decoration-none fw-bold">Cadastre-se aqui</a>
                         </p>
                     </div>
+
+                    <!-- LINK PARA CADASTRO DE ADMIN -->
+                    <div class="text-center mt-2">
+                        <small class="text-muted">
+                            <a href="/Auth/CadastroAdmin" class="text-decoration-none">Acesso administradores</a>
+                        </small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,5 +78,11 @@
     .btn {
         border-radius: 8px;
         padding: 12px;
+    }
+    body {
+        background-image: url('/images/FundoGraf.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 </style>

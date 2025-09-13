@@ -32,8 +32,28 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxDYWRhc3Ryby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/carlos.abreu/Pizzaria/Views/Auth/CadastroAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxDYWRhc3Ryb0FkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlos.abreu/Pizzaria/Views/Auth/CadastroSucesso.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxDYWRhc3Ryb1N1Y2Vzc28uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/carlos.abreu/Pizzaria/Views/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlos.abreu/Pizzaria/Views/Home/AcompanharPedido.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY29tcGFuaGFyUGVkaWRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlos.abreu/Pizzaria/Views/Home/AdminPedidos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZG1pblBlZGlkb3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlos.abreu/Pizzaria/Views/Home/Cardapio.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDYXJkYXBpby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/carlos.abreu/Pizzaria/Views/Home/Confirmacao.cshtml]
@@ -44,8 +64,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb25maXJtYWNhb1BlZGlkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/carlos.abreu/Pizzaria/Views/Home/DetalhesPedido.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhbGhlc1BlZGlkby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/carlos.abreu/Pizzaria/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlos.abreu/Pizzaria/Views/Home/NaoAutorizado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxOYW9BdXRvcml6YWRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/carlos.abreu/Pizzaria/Views/Home/Pagamento.cshtml]
@@ -62,6 +90,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/carlos.abreu/Pizzaria/Views/Home/ResumoPedido.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXN1bW9QZWRpZG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlos.abreu/Pizzaria/Views/Pizza/Admin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGl6emFcQWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlos.abreu/Pizzaria/Views/Pizza/Cadastrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGl6emFcQ2FkYXN0cmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/carlos.abreu/Pizzaria/Views/Pizza/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGl6emFcRWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/carlos.abreu/Pizzaria/Views/Shared/Error.cshtml]

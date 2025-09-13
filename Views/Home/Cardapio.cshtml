@@ -1,0 +1,38 @@
+@model List<Pizzaria.Models.Pizza>
+@{
+    ViewData["Title"] = "Cardápio";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h1 class="text-center mb-4">Cardápio de Pizzas</h1>
+
+    <div class="row">
+        @foreach (var pizza in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="@pizza.ImagemUrl" class="card-img-top" alt="@pizza.Nome" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@pizza.Nome</h5>
+                        <p class="card-text">@pizza.Descricao</p>
+                        <p class="card-text"><strong>R$ @pizza.Preco.ToString("0.00")</strong></p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-home me-2"></i>Voltar à Página Inicial
+        </a>
+        
+        @if (Context.Session.GetInt32("UsuarioId") != null)
+        {
+            <a href="/Home/Pedido" class="btn btn-success ms-2">
+                <i class="fas fa-utensils me-2"></i>Fazer Pedido
+            </a>
+        }
+    </div>
+</div>

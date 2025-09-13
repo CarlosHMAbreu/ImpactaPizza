@@ -1,0 +1,105 @@
+@model Pizzaria.Models.Pedido
+@{
+    ViewData["Title"] = "Detalhes do Pedido";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h3 class="card-title mb-0">Detalhes do Pedido #@Model.Id</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Informações do Cliente</h5>
+                            <p><strong>Nome:</strong> @(Model.Usuario?.NomeCompleto ?? "N/A")</p>
+                            <p><strong>Telefone:</strong> @(Model.Usuario?.Telefone ?? "N/A")</p>
+                            <p><strong>Email:</strong> @(Model.Usuario?.Email ?? "N/A")</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Informações da Entrega</h5>
+                            <p><strong>Endereço:</strong> @Model.EnderecoEntrega</p>
+                            <p><strong>Data/Hora:</strong> @Model.DataPedido.ToString("dd/MM/yyyy HH:mm")</p>
+                            <p><strong>Status:</strong> <span class="badge @GetStatusBadgeClass(Model.Status)">@Model.Status</span></p>
+                            @if (!string.IsNullOrEmpty(Model.Observacoes))
+                            {
+                                <p><strong>Observações:</strong> @Model.Observacoes</p>
+                            }
+                        </div>
+                    </div>
+
+                    <h5>Itens do Pedido</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Pizza</th>
+                                <th>Quantidade</th>
+                                <th>Preço Unitário</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Itens)
+                            {
+                                <tr>
+                                    <td>@item.NomePizza</td>
+                                    <td>@item.Quantidade</td>
+                                    <td>R$ @item.PrecoPizza.ToString("0.00")</td>
+                                    <td>R$ @((item.PrecoPizza * item.Quantidade).ToString("0.00"))</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-primary">
+                                <td colspan="3" class="text-end fw-bold">Total:</td>
+                                <td class="fw-bold">R$ @Model.Total.ToString("0.00")</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        @{
+                            // Botão Voltar inteligente
+                            var urlVoltar = ViewBag.EhAdmin ? "/Home/AdminPedidos" : "/Home/AcompanharPedido";
+                            var textoVoltar = ViewBag.EhAdmin ? "Voltar para Admin" : "Voltar";
+                        }
+                        
+                        <a href="@urlVoltar" class="btn btn-secondary me-md-2">@textoVoltar</a>
+                        
+                        @if (ViewBag.EhAdmin)
+                        {
+                            <form asp-action="AtualizarStatus" method="post" class="d-inline">
+                                <input type="hidden" name="pedidoId" value="@Model.Id" />
+                                <select name="novoStatus" class="form-select me-2" onchange="this.form.submit()">
+                                    <option value="Aguardando Pagamento" selected="@(Model.Status == "Aguardando Pagamento")">Aguardando Pagamento</option>
+                                    <option value="Pago - Em Preparação" selected="@(Model.Status == "Pago - Em Preparação")">Pago - Em Preparação</option>
+                                    <option value="Saiu para Entrega" selected="@(Model.Status == "Saiu para Entrega")">Saiu para Entrega</option>
+                                    <option value="Entregue" selected="@(Model.Status == "Entregue")">Entregue</option>
+                                    <option value="Cancelado" selected="@(Model.Status == "Cancelado")">Cancelado</option>
+                                </select>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Aguardando Pagamento" => "bg-warning",
+            "Pago - Em Preparação" => "bg-info",
+            "Saiu para Entrega" => "bg-primary",
+            "Entregue" => "bg-success",
+            "Cancelado" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+}
